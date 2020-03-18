@@ -1,16 +1,22 @@
 import csv
 import pandas as pd
 
+from pprint import pprint
 from edgar import (
     Company,
     Edgar,
 )
 
+
 def main():
     # initialize the EDGAR database
     edgar = Edgar()
 
-    has_ex_10(edgar)
+    # has_ex_10(edgar)
+
+    training_sentences = get_training_sentences('training_sentences/sentences_200.csv')
+
+    entity_finder_ui(training_sentences)
 
 
 # takes edgar, returns a cleaned pandas dataframe with names and cik's
@@ -19,6 +25,15 @@ def init_edgar_df(edgar):
     df = pd.DataFrame.from_dict(edgar.all_companies_dict, orient='index')
     df = df.reset_index().rename(columns={'index': 'name', 0: 'cik'})
     return df
+
+
+def get_training_sentences(file):
+    sentences = []
+    with open(file, 'r') as f:
+        reader = csv.reader(f)
+        [sentences.extend(row) for row in reader]
+    return sentences
+
 
 # takes edgar, returns a database with all the company's who have exhibit 10's
 def has_ex_10(edgar):
@@ -54,7 +69,6 @@ def entity_finder_ui(sentences):
 NOTE: some sentences should have NO entity in them, enter will mark it as no entities, "d" will delete it
     '''
     remaining_sentences = sentences[:]
-    print(remaining_sentences)
     marked_up_sentences = []
     counter = 1
 
@@ -62,7 +76,7 @@ NOTE: some sentences should have NO entity in them, enter will mark it as no ent
         print(commands_string)
         print(f"PROGRESS: {counter} of {len(sentences)} sentences, only {len(sentences) - counter} to go!")
 
-        print(f"\n{sentence}\n")
+        pprint(f"\n{sentence}\n")
 
         entity_dict = {}
 
