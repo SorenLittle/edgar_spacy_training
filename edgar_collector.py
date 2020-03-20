@@ -14,7 +14,7 @@ def main():
 
     # has_ex_10(edgar)
 
-    training_sentences = get_training_sentences('training_sentences/sentences_200.csv')
+    training_sentences = get_training_sentences('training_sentences/sentences_200_2.csv')
 
     entity_finder_ui(training_sentences)
 
@@ -98,12 +98,12 @@ NOTE: some sentences should have NO entity in them, enter will mark it as no ent
 
         if entity == 'exit game':
             print('got there')
-            with open('//temp_tagging_files/remaining_sentences.csv',
+            with open('/Users/sorenlittle/PycharmProjects/edgar_spacy_training/temp_tagging_files/remaining_sentences.csv',
                       'w', newline='') as f:
                 print('writing')
                 wr = csv.writer(f, quoting=csv.QUOTE_ALL)
                 wr.writerow(remaining_sentences)
-            with open('//temp_tagging_files/marked_up_sentences.csv',
+            with open('/Users/sorenlittle/PycharmProjects/edgar_spacy_training/temp_tagging_files/marked_up_sentences.csv',
                       'w', newline='') as f:
                 wr = csv.writer(f, quoting=csv.QUOTE_ALL)
                 wr.writerow(marked_up_sentences)
@@ -116,7 +116,7 @@ NOTE: some sentences should have NO entity in them, enter will mark it as no ent
 
         remaining_sentences.remove(sentence)
         if len(remaining_sentences) < 1:
-            with open('//temp_tagging_files/marked_up_sentences.csv',
+            with open('/Users/sorenlittle/PycharmProjects/edgar_spacy_training/temp_tagging_files/marked_up_sentences.csv',
                       'w', newline='') as f:
                 wr = csv.writer(f, quoting=csv.QUOTE_ALL)
                 wr.writerow(marked_up_sentences)
